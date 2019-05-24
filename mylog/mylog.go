@@ -12,11 +12,14 @@ import (
 	"github.com/xie1xiao1jun/public/dev"
 )
 
+var _path string
+
 func init() {
 	file, _ := exec.LookPath(os.Args[0])
 	path, _ := filepath.Abs(file)
 	path = filepath.Dir(path)
-	os.MkdirAll(path+"/err", os.ModePerm) //生成多级目录
+	_path = path + "/err"
+	os.MkdirAll(_path, os.ModePerm) //生成多级目录
 }
 
 const ( //
@@ -64,9 +67,9 @@ func SaveError(errstring, flag string) {
 	path, _ := filepath.Abs(file)
 	path = filepath.Dir(path)
 
-	now := time.Now()                                              //获取当前时间
-	time_str := now.Format("2006-01-02_15")                        //设定时间格式
-	fname := fmt.Sprintf("%s/err/%s_%s.log", path, flag, time_str) //保存错误信息文件名:程序名-进程ID-当前时间（年月日时分秒）
+	now := time.Now()                                           //获取当前时间
+	time_str := now.Format("2006-01-02_15")                     //设定时间格式
+	fname := fmt.Sprintf("%s/%s_%s.log", _path, flag, time_str) //保存错误信息文件名:程序名-进程ID-当前时间（年月日时分秒）
 
 	f, err := os.OpenFile(fname, os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
 	if err != nil {
