@@ -3,6 +3,8 @@ package mysqldb
 import (
 	"fmt"
 
+	"github.com/xie1xiao1jun/public/dev"
+
 	"github.com/xie1xiao1jun/public/mylog"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -30,20 +32,13 @@ func (i *MySqlDB) OnGetDBOrm(dataSourceName string) (orm *gorm.DB) {
 
 	i.DB.SingularTable(true) //全局禁用表名复数
 	orm = i.DB
-	if isDev {
+	if dev.OnIsDev() {
 		i.DB.LogMode(true)
 		//beedb.OnDebug = true
 	} else {
 		i.DB.SetLogger(DbLog{})
 	}
 	return
-}
-
-var isDev bool = false
-
-//是否调试
-func (i *MySqlDB) SetIsDev(b bool) {
-	isDev = b
 }
 
 func (i *MySqlDB) OnDestoryDB() {
