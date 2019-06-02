@@ -13,6 +13,7 @@ import (
 
 type MySqlDB struct {
 	*gorm.DB
+	IsInit bool
 }
 
 func OnInitDBOrm(dataSourceName string) (orm *MySqlDB) {
@@ -26,18 +27,21 @@ func (i *MySqlDB) OnGetDBOrm(dataSourceName string) (orm *gorm.DB) {
 		var err error
 		i.DB, err = gorm.Open("mysql", dataSourceName)
 		if err != nil {
-			mylog.Print(mylog.Log_Error, fmt.Sprintf("Got error when connect database, the error is '%v'", err))
+			mylog.Print(mylog.Log_Error, fmt.Sprintf("Got error when connect database, '%v'", err))
+			return nil
 		}
+
+		i.IsInit = true
 	}
 
 	i.DB.SingularTable(true) //全局禁用表名复数
-	orm = i.DB
 	if dev.OnIsDev() {
 		i.DB.LogMode(true)
 		//beedb.OnDebug = true
 	} else {
 		i.DB.SetLogger(DbLog{})
 	}
+	orm = i.DB
 	return
 }
 
