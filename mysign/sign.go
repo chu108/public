@@ -1,13 +1,14 @@
 package mysign
 
 import (
-	"data/config"
-	"public/mycache"
-	"public/mylog"
-	"public/mysqldb"
-	"public/tools"
 	"strings"
 	"time"
+
+	"github.com/xie1xiao1jun/go-restful/data/config"
+	"github.com/xie1xiao1jun/public/mycache"
+	"github.com/xie1xiao1jun/public/mylog"
+	"github.com/xie1xiao1jun/public/mysqldb"
+	"github.com/xie1xiao1jun/public/tools"
 )
 
 func init() {
@@ -18,9 +19,8 @@ func OnInit() {
 	str_db := config.GetDbUrl()
 	//fmt.Println("dddddddddddddd:", str_db)
 	if len(str_db) > 0 {
-		var db mysqldb.MySqlDB
-		defer db.OnDestoryDB()
-		orm := db.OnGetDBOrm(str_db)
+		orm := mysqldb.OnInitDBOrm(str_db)
+		defer orm.OnDestoryDB()
 		if orm.HasTable(&Sign_client_tbl{}) { //有这个表
 			now := time.Now()
 			var list []Sign_client_tbl

@@ -8,7 +8,8 @@ import (
 	"log"
 	"net/http"
 	"net/url"
-	"public/mylog"
+
+	"github.com/xie1xiao1jun/public/mylog"
 )
 
 //发送修改密码

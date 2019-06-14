@@ -98,8 +98,3 @@ func Debug(describ ...interface{}) {
 		}
 	}
 }
-
-//刷新
-func Flush() {
-
-}

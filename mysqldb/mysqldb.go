@@ -30,7 +30,6 @@ func (i *MySqlDB) OnGetDBOrm(dataSourceName string) (orm *gorm.DB) {
 			mylog.Print(mylog.Log_Error, fmt.Sprintf("Got error when connect database, '%v'", err))
 			return nil
 		}
-
 		i.IsInit = true
 	}
 

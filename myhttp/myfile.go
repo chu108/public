@@ -2,7 +2,6 @@ package myhttp
 
 import (
 	"bytes"
-	"data/config"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -10,9 +9,12 @@ import (
 	"net/http"
 	"os"
 	"path"
-	"public/mylog"
-	"public/tools"
+
 	"time"
+
+	"github.com/xie1xiao1jun/go-restful/data/config"
+	"github.com/xie1xiao1jun/public/mylog"
+	"github.com/xie1xiao1jun/public/tools"
 )
 
 /*

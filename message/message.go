@@ -4,13 +4,13 @@
 package message
 
 import (
-	"data/config"
 	"encoding/json"
 	"fmt"
 	"log"
-	"public/tools"
 
 	"github.com/bitly/go-simplejson"
+	"github.com/xie1xiao1jun/public/dev"
+	"github.com/xie1xiao1jun/public/tools"
 )
 
 const ( //消息id定义
@@ -231,7 +231,7 @@ func GetErrorMsg(errorCode ...interface{}) (msg MessageBody) {
 			fmt.Println(v)
 		case interface{}:
 			{
-				if config.OnIsDev() {
+				if dev.OnIsDev() {
 					msg.Error = onCheckParam(v)
 				}
 			}
