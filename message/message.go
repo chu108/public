@@ -5,7 +5,6 @@ package message
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 
 	"github.com/bitly/go-simplejson"
@@ -228,7 +227,8 @@ func GetErrorMsg(errorCode ...interface{}) (msg MessageBody) {
 			msg.Error = MessageMap[msg.Code]
 		case string:
 			msg.Error = string(v)
-			fmt.Println(v)
+		case error:
+			msg.Error = v.Error()
 		case interface{}:
 			{
 				if dev.OnIsDev() {
