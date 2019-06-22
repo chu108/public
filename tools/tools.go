@@ -9,20 +9,10 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"os"
-	"path/filepath"
 	"reflect"
 	"sort"
 	"strings"
 )
-
-/*
-获取程序运行路径
-*/
-func GetCurrentDirectory() string {
-	dir, _ := filepath.Abs(filepath.Dir(os.Args[0]))
-	return strings.Replace(dir, "\\", "/", -1)
-}
 
 func Md5Encoder(src string) string {
 	h := md5.New()

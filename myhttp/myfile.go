@@ -10,9 +10,10 @@ import (
 	"os"
 	"path"
 
+	"github.com/xie1xiao1jun/public/dev"
+
 	"time"
 
-	"github.com/xie1xiao1jun/go-restful/data/config"
 	"github.com/xie1xiao1jun/public/mylog"
 	"github.com/xie1xiao1jun/public/tools"
 )
@@ -41,11 +42,10 @@ func UploadMoreFile(r *http.Request, dir string) (result bool, optionDirs []stri
 						_dir = ext
 					}
 
-					abs_dir := tools.GetModelPath() + config.File_host + "/" + _dir + "/"
+					abs_dir := tools.GetCurrentDirectory() + "/" + dev.GetFileHost() + "/" + _dir + "/"
 					file_name := getFileName(ext)
 					if !tools.CheckFileIsExist(abs_dir) {
 						tools.BuildDir(abs_dir)
-						//err := os.MkdirAll(tools.GetModelPath()+config.File_host+"/"+_dir+"/", os.ModePerm) //生成多级目录
 					}
 
 					//存在则覆盖
@@ -59,7 +59,7 @@ func UploadMoreFile(r *http.Request, dir string) (result bool, optionDirs []stri
 					}
 
 					io.Copy(f, file)
-					optionDirs = append(optionDirs, config.Url_host+config.File_host+"/"+_dir+"/"+file_name)
+					optionDirs = append(optionDirs, "/"+dev.GetService()+"/"+dev.GetFileHost()+"/"+_dir+"/"+file_name)
 					result = true
 				}
 			}

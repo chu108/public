@@ -6,6 +6,8 @@ import (
 )
 
 var _isDev = true
+var service = "service"
+var fileHost = "file"
 
 //是否开发模式
 func OnSetDev(isDev bool) {
@@ -23,4 +25,24 @@ func IsRunTesting() bool {
 		return strings.HasPrefix(os.Args[1], "-test")
 	}
 	return false
+}
+
+//设置服务名
+func SetService(s string) {
+	service = s
+}
+
+//获取服务名
+func GetService() string {
+	return service
+}
+
+//设置服务名
+func SetFileHost(s string) {
+	fileHost = s
+}
+
+//获取文件host
+func GetFileHost() string {
+	return fileHost
 }
