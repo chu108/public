@@ -10,7 +10,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/xie1xiao1jun/public/mylog"
+	"github.com/xxjwxc/public/mylog"
 )
 
 //检查目录是否存在

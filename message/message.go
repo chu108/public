@@ -8,8 +8,8 @@ import (
 	"log"
 
 	"github.com/bitly/go-simplejson"
-	"github.com/xie1xiao1jun/public/dev"
-	"github.com/xie1xiao1jun/public/tools"
+	"github.com/xxjwxc/public/dev"
+	"github.com/xxjwxc/public/tools"
 )
 
 const ( //消息id定义

@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/xie1xiao1jun/public/tools"
+	"github.com/xxjwxc/public/tools"
 )
 
 //上传单个文件

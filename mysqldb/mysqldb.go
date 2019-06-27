@@ -3,9 +3,9 @@ package mysqldb
 import (
 	"fmt"
 
-	"github.com/xie1xiao1jun/public/dev"
+	"github.com/xxjwxc/public/dev"
 
-	"github.com/xie1xiao1jun/public/mylog"
+	"github.com/xxjwxc/public/mylog"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"

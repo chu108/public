@@ -9,9 +9,9 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/xie1xiao1jun/public/dev"
-	"github.com/xie1xiao1jun/public/myelastic"
-	"github.com/xie1xiao1jun/public/myqueue"
+	"github.com/xxjwxc/public/dev"
+	"github.com/xxjwxc/public/myelastic"
+	"github.com/xxjwxc/public/myqueue"
 )
 
 var ptr_que *myqueue.MyQueue = nil

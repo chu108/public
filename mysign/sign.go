@@ -4,11 +4,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/xie1xiao1jun/go-restful/data/config"
-	"github.com/xie1xiao1jun/public/mycache"
-	"github.com/xie1xiao1jun/public/mylog"
-	"github.com/xie1xiao1jun/public/mysqldb"
-	"github.com/xie1xiao1jun/public/tools"
+	"github.com/xxjwxc/go-restful/data/config"
+	"github.com/xxjwxc/public/mycache"
+	"github.com/xxjwxc/public/mylog"
+	"github.com/xxjwxc/public/mysqldb"
+	"github.com/xxjwxc/public/tools"
 )
 
 func init() {

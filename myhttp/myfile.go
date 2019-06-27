@@ -10,12 +10,12 @@ import (
 	"os"
 	"path"
 
-	"github.com/xie1xiao1jun/public/dev"
+	"github.com/xxjwxc/public/dev"
 
 	"time"
 
-	"github.com/xie1xiao1jun/public/mylog"
-	"github.com/xie1xiao1jun/public/tools"
+	"github.com/xxjwxc/public/mylog"
+	"github.com/xxjwxc/public/tools"
 )
 
 /*

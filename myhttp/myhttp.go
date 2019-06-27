@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/xie1xiao1jun/public/mylog"
+	"github.com/xxjwxc/public/mylog"
 )
 
 //发送修改密码

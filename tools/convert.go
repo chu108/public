@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/xie1xiao1jun/public/mylog"
+	"github.com/xxjwxc/public/mylog"
 )
 
 type RawBytes []byte
