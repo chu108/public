@@ -3,8 +3,9 @@ package myelastic
 import (
 	"context"
 	"encoding/json"
-	"errors"
 	"log"
+
+	"github.com/xxjwxc/public/errors"
 
 	"reflect"
 	"strings"

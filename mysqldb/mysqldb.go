@@ -1,9 +1,8 @@
 package mysqldb
 
 import (
-	"fmt"
-
 	"github.com/xxjwxc/public/dev"
+	"github.com/xxjwxc/public/errors"
 
 	"github.com/xxjwxc/public/mylog"
 
@@ -27,7 +26,7 @@ func (i *MySqlDB) OnGetDBOrm(dataSourceName string) (orm *gorm.DB) {
 		var err error
 		i.DB, err = gorm.Open("mysql", dataSourceName)
 		if err != nil {
-			mylog.Print(mylog.Log_Error, fmt.Sprintf("Got error when connect database, '%v'", err))
+			mylog.Error(errors.Wrap(err, "Got error when connect database"))
 			return nil
 		}
 		i.IsInit = true

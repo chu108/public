@@ -6,12 +6,13 @@ import (
 	"crypto/sha1"
 	"encoding/base64"
 	"encoding/hex"
-	"errors"
 	"fmt"
 	"io"
 	"reflect"
 	"sort"
 	"strings"
+
+	"github.com/xxjwxc/public/errors"
 )
 
 func Md5Encoder(src string) string {

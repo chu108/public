@@ -4,12 +4,13 @@ import (
 	"bytes"
 	"encoding/gob"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"regexp"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/xxjwxc/public/errors"
 
 	"github.com/xxjwxc/public/mylog"
 )
