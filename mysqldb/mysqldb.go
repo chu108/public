@@ -26,7 +26,7 @@ func (i *MySqlDB) OnGetDBOrm(dataSourceName string) (orm *gorm.DB) {
 		var err error
 		i.DB, err = gorm.Open("mysql", dataSourceName)
 		if err != nil {
-			mylog.Error(errors.Wrap(err, "Got error when connect database"))
+			mylog.Error(errors.Wrap(err, "Got error when connect database:"+dataSourceName))
 			return nil
 		}
 		i.IsInit = true
