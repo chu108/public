@@ -1,13 +1,13 @@
 package myleveldb
 
 import (
-	"public/mylog"
-	"public/tools"
 	"reflect"
 
 	"github.com/syndtr/goleveldb/leveldb"
 	"github.com/syndtr/goleveldb/leveldb/iterator"
 	"github.com/syndtr/goleveldb/leveldb/util"
+	"github.com/xxjwxc/public/mylog"
+	"github.com/xxjwxc/public/tools"
 )
 
 type Param struct {

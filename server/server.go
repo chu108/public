@@ -27,7 +27,7 @@ func On(n, dn, d string) *Service {
 
 func (sv *Service) Start(callBack func()) {
 	if len(sv.name) == 0 {
-		color.Error.Render("Service init faild,must first call On.\n")
+		fmt.Println(color.Error.Render("Service init faild,must first call On."))
 		return
 	}
 	//name, displayName, desc := config.GetServiceConfig()
@@ -40,11 +40,11 @@ func (sv *Service) Start(callBack func()) {
 	s, err := service.New(p, sc)
 	//var s, err = service.NewService(name, displayName, desc)
 	if err != nil {
-		color.Error.Render("%s unable to start: %s", sv.displayName, err)
+		fmt.Print(color.Error.Render(fmt.Sprintf("%s unable to start: %s", sv.displayName, err)))
 		return
 	}
 
-	color.Info.Render("Service \"%s\" do.\n", sv.displayName)
+	fmt.Print(color.Info.Render(fmt.Sprintf("Service \"%s\" do.\n", sv.displayName)))
 
 	if len(os.Args) > 1 {
 		var err error
@@ -54,37 +54,37 @@ func (sv *Service) Start(callBack func()) {
 			{
 				err = s.Install()
 				if err != nil {
-					color.Error.Render("Failed to install: %s\n", err)
+					fmt.Print(color.Error.Render(fmt.Sprintf("Failed to install: %s\n", err)))
 					return
 				}
-				color.Info.Render("Service \"%s\" installed.\n", sv.displayName)
+				fmt.Print(color.Info.Render(fmt.Sprintf("Service \"%s\" installed.\n", sv.displayName)))
 			}
 		case "remove":
 			{
 				err = s.Uninstall()
 				if err != nil {
-					color.Error.Render("Failed to remove: %s\n", err)
+					fmt.Print(color.Error.Render(fmt.Sprintf("Failed to remove: %s\n", err)))
 					return
 				}
-				color.Info.Render("Service \"%s\" removed.\n", sv.displayName)
+				fmt.Print(color.Info.Render(fmt.Sprintf("Service \"%s\" removed.\n", sv.displayName)))
 			}
 		case "run":
 			{
 				err = s.Run()
 				if err != nil {
-					color.Error.Render("Failed to run: %s\n", err)
+					fmt.Print(color.Error.Render(fmt.Sprintf("Failed to run: %s\n", err)))
 					return
 				}
-				color.Info.Render("Service \"%s\" run.\n", sv.displayName)
+				fmt.Print(color.Info.Render(fmt.Sprintf("Service \"%s\" run.\n", sv.displayName)))
 			}
 		case "start":
 			{
 				err = s.Start()
 				if err != nil {
-					color.Error.Render("Failed to start: %s\n", err)
+					fmt.Print(color.Error.Render(fmt.Sprintf("Failed to start: %s\n", err)))
 					return
 				}
-				color.Info.Render("starting check service:", sv.displayName)
+				fmt.Print(color.Info.Render(fmt.Sprintf("starting check service:%v", sv.displayName)))
 
 				ticker := time.NewTicker(1 * time.Second)
 				<-ticker.C
@@ -96,18 +96,18 @@ func (sv *Service) Start(callBack func()) {
 					return
 				} else {
 					if st == Stopped || st == StopPending {
-						color.Error.Render("Service \"%s\" is Stopped.\n", sv.displayName)
-						color.Error.Render("can't to start service.")
+						fmt.Print(color.Error.Render(fmt.Sprintf("Service \"%s\" is Stopped.\n", sv.displayName)))
+						fmt.Print(color.Error.Render("can't to start service."))
 						return
 					}
 				}
-				color.Info.Render("Service \"%s\" started.\n", sv.displayName)
+				fmt.Print(color.Info.Render(fmt.Sprintf("Service \"%s\" started.\n", sv.displayName)))
 			}
 		case "stop":
 			{
 				err = s.Stop()
 				if err != nil {
-					color.Error.Render("Failed to stop: %s\n", err)
+					fmt.Print(color.Error.Render(fmt.Sprintf("Failed to stop: %s\n", err)))
 					return
 				}
 				var s ServiceTools
@@ -117,18 +117,18 @@ func (sv *Service) Start(callBack func()) {
 					return
 				} else {
 					if st == Running || st == StartPending {
-						color.Error.Render("Service \"%s\" is Started.\n", sv.displayName)
-						color.Error.Render("can't to stop service.")
+						fmt.Print(color.Error.Render(fmt.Sprintf("Service \"%s\" is Started.\n", sv.displayName)))
+						fmt.Print(color.Error.Render("can't to stop service."))
 						return
 					}
 				}
-				color.Info.Render("Service \"%s\" stopped.\n", sv.displayName)
+				fmt.Print(color.Info.Render(fmt.Sprintf("Service \"%s\" stopped.\n", sv.displayName)))
 			}
 		}
 		return
 	}
 
-	color.Note.Render("Failed to read args\n")
+	fmt.Print(color.Note.Render("Failed to read args\n"))
 
 	if err = s.Run(); err != nil {
 		logger.Error(err)
