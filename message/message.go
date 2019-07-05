@@ -261,12 +261,12 @@ func onCheckParam(op interface{}) string {
 }
 
 //成功消息
-func GetSuccessMsg(errorCode ...int) (msg MessageBody) {
+func GetSuccessMsg(code ...int) (msg MessageBody) {
 	msg.State = true
-	if len(errorCode) == 0 {
+	if len(code) == 0 {
 		msg.Code = NormalMessageId
 	} else {
-		msg.Code = errorCode[0]
+		msg.Code = code[0]
 	}
 
 	msg.Error = MessageMap[msg.Code]
