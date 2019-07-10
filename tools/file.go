@@ -107,11 +107,11 @@ func ReadFile(fname string) (src []string) {
 
 	rd := bufio.NewReader(f)
 	for {
-		line, err := rd.ReadString('\n')
+		line, _, err := rd.ReadLine()
 		if err != nil || io.EOF == err {
 			break
 		}
-		src = append(src, line)
+		src = append(src, string(line))
 	}
 
 	return src
