@@ -84,7 +84,7 @@ func (sv *Service) Start(callBack func()) {
 					fmt.Print(color.Error.Render(fmt.Sprintf("Failed to start: %s\n", err)))
 					return
 				}
-				fmt.Print(color.Info.Render(fmt.Sprintf("starting check service:%v", sv.displayName)))
+				fmt.Print(color.Info.Render(fmt.Sprintf("starting check service:%v\n", sv.displayName)))
 
 				ticker := time.NewTicker(1 * time.Second)
 				<-ticker.C
