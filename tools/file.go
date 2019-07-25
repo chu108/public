@@ -62,8 +62,9 @@ func GetPathFiles(abs_dir string) (re []string) {
 //获取目录地址
 func GetModelPath() string {
 	file, _ := exec.LookPath(os.Args[0])
-	path, _ := filepath.Abs(file)
-	path = filepath.Dir(path)
+	path := filepath.Dir(file)
+	path, _ = filepath.Abs(path)
+
 	return path
 }
 
