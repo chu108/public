@@ -1,5 +1,5 @@
 /*
-	分数运算相关
+Package fractional 分数运算相关
 */
 package fractional
 
@@ -85,4 +85,9 @@ func (s *FAL) Div(f FAL) *FAL {
 	s.Mul(*tmp)
 	s.offset()
 	return s
+}
+
+//verdict 计算结果
+func (s *FAL) Verdict() float64 {
+	return float64(s.Nume) / float64(s.Deno)
 }
