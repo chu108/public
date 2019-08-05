@@ -1,7 +1,12 @@
 package mymath
 
+import "math"
+
 //Gcd 最大公约数:(辗转相除法)
 func Gcd(x, y int64) int64 {
+	x = int64(math.Abs(float64(x)))
+	y = int64(math.Abs(float64(y)))
+
 	var tmp int64
 	for {
 		tmp = (x % y)

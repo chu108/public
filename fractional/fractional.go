@@ -16,7 +16,8 @@ type FAL struct {
 }
 
 //Model 创建一个分数(分子，分母)，分母默认为1
-func Model(nd ...int64) (f *FAL) {
+func Model(nd ...int64) *FAL {
+	var f FAL
 	if len(nd) == 1 {
 		f.Nume = nd[0]
 		f.Deno = 1
@@ -29,7 +30,7 @@ func Model(nd ...int64) (f *FAL) {
 		panic(fmt.Sprintf("fractional init error. if denominator can't zero."))
 	}
 
-	return
+	return &f
 }
 
 //阔张
@@ -40,20 +41,21 @@ func (s *FAL) broad(lcm int64) {
 
 //压缩 整理
 func (s *FAL) offset() {
-	lcm := mymath.Lcm(s.Deno, f.Deno)
+	lcm := mymath.Gcd(s.Nume, s.Deno)
 
-	s.Nume = s.Nume * (lcm / s.Deno)
-	s.Deno = lcm
+	s.Nume /= lcm
+	s.Deno /= lcm
 }
 
 //Add 分数加法
 func (s *FAL) Add(f FAL) *FAL {
 	//获取最小公倍数
-	lcm := mymath.Lcm(s.Deno, f.Deno)
+	lcm := mymath.Lcm(f.Deno, s.Deno)
 	s.broad(lcm)
-	f.broad(clm)
+	f.broad(lcm)
 
 	s.Nume += f.Nume
+	s.offset()
 	return s
 }
 
@@ -62,9 +64,10 @@ func (s *FAL) Sub(f FAL) *FAL {
 	//获取最小公倍数
 	lcm := mymath.Lcm(s.Deno, f.Deno)
 	s.broad(lcm)
-	f.broad(clm)
+	f.broad(lcm)
 
 	s.Nume -= f.Nume
+	s.offset()
 	return s
 }
 
@@ -72,11 +75,14 @@ func (s *FAL) Sub(f FAL) *FAL {
 func (s *FAL) Mul(f FAL) *FAL {
 	s.Deno *= f.Deno
 	s.Nume *= f.Nume
+	s.offset()
 	return s
 }
 
 //Div 乘法
 func (s *FAL) Div(f FAL) *FAL {
 	tmp := Model(f.Deno, f.Nume)
-	return s.Mul(tmp)
+	s.Mul(*tmp)
+	s.offset()
+	return s
 }
