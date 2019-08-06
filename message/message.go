@@ -105,6 +105,7 @@ const ( //消息id定义
 	ExistedError          = 1084 //已存在
 	NotBindError          = 1085 //未绑定
 	BindError             = 1086 //绑定失败
+	CalError              = 1087 //计算错误
 )
 
 //消息翻译
@@ -201,6 +202,7 @@ var MessageMap = map[int]string{
 	ExistedError:          "已存在",
 	NotBindError:          "未绑定",
 	BindError:             "绑定失败",
+	CalError:              "计算错误",
 }
 
 //
