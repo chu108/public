@@ -205,7 +205,7 @@ var MessageMap = map[int]string{
 	CalError:              "计算错误",
 }
 
-//
+//MessageBody 消息头
 type MessageBody struct {
 	State bool        `json:"state"`
 	Code  int         `json:"code,omitempty"`
@@ -213,7 +213,7 @@ type MessageBody struct {
 	Data  interface{} `json:"data,omitempty"`
 }
 
-//获取错误消息 参数(int,string)
+//GetErrorMsg 获取错误消息 参数(int,string)
 func GetErrorMsg(errorCode ...interface{}) (msg MessageBody) {
 	if len(errorCode) == 0 {
 		log.Println("未知")
