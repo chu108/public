@@ -63,6 +63,12 @@ func Error(err error) {
 	SaveError(fmt.Sprintf("%+v", err), "err")
 }
 
+//打印错误信息
+func ErrorString(v ...interface{}) {
+	log.Output(2, color.Error.Render(fmt.Sprint(v...)))
+}
+
+//Fatal 系统级错误
 func Fatal(v ...interface{}) {
 	log.Output(2, color.Error.Render(fmt.Sprint(v...)))
 	os.Exit(1)
