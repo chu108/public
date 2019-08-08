@@ -12,8 +12,8 @@ import (
 	"github.com/xxjwxc/public/mylog"
 )
 
-//发送修改密码
-func OnPostJson(url, jsonstr string) []byte {
+//OnPostJSON 发送修改密码
+func OnPostJSON(url, jsonstr string) []byte {
 	//解析这个 URL 并确保解析没有出错。
 	body := bytes.NewBuffer([]byte(jsonstr))
 	resp, err := http.Post(url, "application/json;charset=utf-8", body)
@@ -29,8 +29,8 @@ func OnPostJson(url, jsonstr string) []byte {
 	return body1
 }
 
-//发送get 请求
-func OnGetJson(url, params string) string {
+//OnGetJSON 发送get 请求
+func OnGetJSON(url, params string) string {
 	//解析这个 URL 并确保解析没有出错。
 	var urls = url
 	if len(params) > 0 {
@@ -49,7 +49,7 @@ func OnGetJson(url, params string) string {
 	return string(body1)
 }
 
-//发送get 请求 返回对象
+//SendGet 发送get 请求 返回对象
 func SendGet(url, params string, obj interface{}) bool {
 	//解析这个 URL 并确保解析没有出错。
 	var urls = url
@@ -72,7 +72,7 @@ func SendGet(url, params string, obj interface{}) bool {
 	return err == nil
 }
 
-//发送GET请求
+//SendGetEx 发送GET请求
 func SendGetEx(url string, reponse interface{}) bool {
 	resp, e := http.Get(url)
 	if e != nil {
@@ -90,7 +90,7 @@ func SendGetEx(url string, reponse interface{}) bool {
 	return err == nil
 }
 
-//form 方式发送post请求
+//OnPostForm form 方式发送post请求
 func OnPostForm(url string, data url.Values) (body []byte) {
 	resp, err := http.PostForm(url, data)
 	if err != nil {
@@ -105,7 +105,7 @@ func OnPostForm(url string, data url.Values) (body []byte) {
 	return
 }
 
-//发送POST请求
+//SendPost 发送POST请求
 func SendPost(requestBody interface{}, responseBody interface{}, url string) bool {
 	postData, err := json.Marshal(requestBody)
 	client := &http.Client{}
@@ -132,9 +132,9 @@ func SendPost(requestBody interface{}, responseBody interface{}, url string) boo
 	return err == nil
 }
 
-//像指定client 发送json 包
+//WriteJSON  像指定client 发送json 包
 //msg message.MessageBody
-func WriteJson(w http.ResponseWriter, msg interface{}) {
+func WriteJSON(w http.ResponseWriter, msg interface{}) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	js, err := json.Marshal(msg)
 	if err != nil {
