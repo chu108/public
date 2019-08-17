@@ -46,7 +46,7 @@ func GetPathDirs(abs_dir string) (re []string) {
 	return
 }
 
-//获取目录所有文件夹
+//获取目录所有文件
 func GetPathFiles(abs_dir string) (re []string) {
 	if CheckFileIsExist(abs_dir) {
 		files, _ := ioutil.ReadDir(abs_dir)
