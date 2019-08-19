@@ -2,6 +2,7 @@ package myleveldb
 
 import (
 	"reflect"
+	"sync"
 
 	"github.com/syndtr/goleveldb/leveldb"
 	"github.com/syndtr/goleveldb/leveldb/iterator"
@@ -10,15 +11,19 @@ import (
 	"github.com/xxjwxc/public/tools"
 )
 
+var lock sync.Mutex
+
 type Param struct {
 	Key   string
 	Value interface{}
 }
 
 func OnInitDB(dataSourceName string) MyLevelDB {
+	lock.Lock()
 	var L MyLevelDB
 	L.DB, L.E = leveldb.OpenFile(dataSourceName, nil)
 	if L.E != nil {
+		lock.Unlock()
 		mylog.Error(L.E)
 	}
 	//	L.op = &opt.ReadOptions{
@@ -39,6 +44,7 @@ func (L *MyLevelDB) OnDestoryDB() {
 	if L.DB != nil {
 		L.DB.Close()
 		L.DB = nil
+		lock.Unlock()
 	}
 }
 
