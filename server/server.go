@@ -5,6 +5,8 @@ import (
 	"os"
 	"time"
 
+	"github.com/xxjwxc/public/dev"
+
 	"github.com/gookit/color"
 	"github.com/jander/golog/logger"
 	"github.com/kardianos/service"
@@ -73,6 +75,16 @@ func (sv *Service) Start(callBack func()) {
 				err = s.Run()
 				if err != nil {
 					fmt.Print(color.Error.Render(fmt.Sprintf("Failed to run: %s\n", err)))
+					return
+				}
+				fmt.Print(color.Info.Render(fmt.Sprintf("Service \"%s\" run.\n", sv.displayName)))
+			}
+		case "debug":
+			{
+				dev.OnSetDev(true)
+				err = s.Run()
+				if err != nil {
+					fmt.Print(color.Error.Render(fmt.Sprintf("Failed to debug: %s\n", err)))
 					return
 				}
 				fmt.Print(color.Info.Render(fmt.Sprintf("Service \"%s\" run.\n", sv.displayName)))
