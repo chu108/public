@@ -12,6 +12,7 @@ import (
 )
 
 var lock sync.Mutex
+var locks = map[string]*sync.Mutex{}
 
 type Param struct {
 	Key   string
@@ -19,11 +20,20 @@ type Param struct {
 }
 
 func OnInitDB(dataSourceName string) MyLevelDB {
-	lock.Lock()
+	if _, ok := locks[dataSourceName]; !ok {
+		lock.Lock()
+		if _, ok := locks[dataSourceName]; !ok {
+			locks[dataSourceName] = &sync.Mutex{}
+		}
+		lock.Unlock()
+	}
+
+	locks[dataSourceName].Lock()
 	var L MyLevelDB
+	L.dataSourceName = dataSourceName
 	L.DB, L.E = leveldb.OpenFile(dataSourceName, nil)
 	if L.E != nil {
-		lock.Unlock()
+		locks[dataSourceName].Unlock()
 		mylog.Error(L.E)
 	}
 	//	L.op = &opt.ReadOptions{
@@ -34,8 +44,9 @@ func OnInitDB(dataSourceName string) MyLevelDB {
 }
 
 type MyLevelDB struct {
-	DB *leveldb.DB
-	E  error
+	DB             *leveldb.DB
+	E              error
+	dataSourceName string
 	//op    *opt.ReadOptions
 	Value interface{}
 }
@@ -44,7 +55,7 @@ func (L *MyLevelDB) OnDestoryDB() {
 	if L.DB != nil {
 		L.DB.Close()
 		L.DB = nil
-		lock.Unlock()
+		locks[L.dataSourceName].Unlock()
 	}
 }
 
