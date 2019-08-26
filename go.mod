@@ -10,4 +10,6 @@ require (
 	github.com/jander/golog v0.0.0-20150917071935-954a5be801fc
 	github.com/kardianos/service v1.0.0
 	github.com/syndtr/goleveldb v1.0.0
+	golang.org/x/net v0.0.0-20180906233101-161cd47e91fd
+	gopkg.in/eapache/queue.v1 v1.1.0
 )
