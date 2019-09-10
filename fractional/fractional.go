@@ -15,7 +15,7 @@ type FAL struct {
 	Deno int64 //denominator 分母 (一定不为0)
 }
 
-//Model 创建一个分数(分子，分母)，分母默认为1
+//Model Create a score (molecular, denominator) with a denominator default of 1 创建一个分数(分子，分母)，分母默认为1:
 func Model(nd ...int64) *FAL {
 	var f FAL
 	if len(nd) == 1 {
@@ -48,7 +48,7 @@ func (s *FAL) offset() {
 }
 
 //Add 分数加法
-func (s *FAL) Add(f FAL) *FAL {
+func (s *FAL) Add(f *FAL) *FAL {
 	//获取最小公倍数
 	lcm := mymath.Lcm(f.Deno, s.Deno)
 	s.broad(lcm)
@@ -60,7 +60,7 @@ func (s *FAL) Add(f FAL) *FAL {
 }
 
 //Sub 分数减法
-func (s *FAL) Sub(f FAL) *FAL {
+func (s *FAL) Sub(f *FAL) *FAL {
 	//获取最小公倍数
 	lcm := mymath.Lcm(s.Deno, f.Deno)
 	s.broad(lcm)
@@ -72,7 +72,7 @@ func (s *FAL) Sub(f FAL) *FAL {
 }
 
 //Mul 乘法
-func (s *FAL) Mul(f FAL) *FAL {
+func (s *FAL) Mul(f *FAL) *FAL {
 	s.Deno *= f.Deno
 	s.Nume *= f.Nume
 	s.offset()
@@ -80,14 +80,14 @@ func (s *FAL) Mul(f FAL) *FAL {
 }
 
 //Div 乘法
-func (s *FAL) Div(f FAL) *FAL {
+func (s *FAL) Div(f *FAL) *FAL {
 	tmp := Model(f.Deno, f.Nume)
-	s.Mul(*tmp)
+	s.Mul(tmp)
 	s.offset()
 	return s
 }
 
-//verdict 计算结果
+//Verdict 计算结果
 func (s *FAL) Verdict() float64 {
 	return float64(s.Nume) / float64(s.Deno)
 }
