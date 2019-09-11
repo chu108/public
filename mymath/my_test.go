@@ -7,7 +7,6 @@ import (
 )
 
 func Test_order(t *testing.T) {
-
 	ch := make(chan int)
 	go func() {
 		time.Sleep(10 * time.Second)
