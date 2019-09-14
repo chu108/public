@@ -57,7 +57,6 @@ func Info(describ string) {
 
 //
 func Error(err error) {
-	log.Println(color.Error.Render(fmt.Sprintf("Original: %+v", err)))
 	err = errors.Cause(err) //获取原始对象
 	log.Println(color.Error.Render(fmt.Sprintf(":Cause:%+v", err)))
 	SaveError(fmt.Sprintf("%+v", err), "err")
