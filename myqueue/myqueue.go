@@ -6,38 +6,43 @@ import (
 	"gopkg.in/eapache/queue.v1"
 )
 
+//MyQueue queue
 type MyQueue struct {
-	lock    sync.Mutex
+	sync.Mutex
 	popable *sync.Cond
 	buffer  *queue.Queue
 	closed  bool
 }
 
-// 创建
-func NewSyncQueue() *MyQueue {
+//New 创建
+func New() *MyQueue {
 	ch := &MyQueue{
 		buffer: queue.New(),
 	}
-	ch.popable = sync.NewCond(&ch.lock)
+	ch.popable = sync.NewCond(&ch.Mutex)
 	return ch
 }
 
-// 取出队列,（阻塞模式）
+//Pop 取出队列,（阻塞模式）
 func (q *MyQueue) Pop() (v interface{}) {
 	c := q.popable
 	buffer := q.buffer
 
-	q.lock.Lock()
+	q.Mutex.Lock()
+	defer q.Mutex.Unlock()
+
 	for buffer.Length() == 0 && !q.closed {
 		c.Wait()
+	}
+
+	if q.closed { //已关闭
+		return
 	}
 
 	if buffer.Length() > 0 {
 		v = buffer.Peek()
 		buffer.Remove()
 	}
-
-	q.lock.Unlock()
 	return
 }
 
@@ -45,7 +50,8 @@ func (q *MyQueue) Pop() (v interface{}) {
 func (q *MyQueue) TryPop() (v interface{}, ok bool) {
 	buffer := q.buffer
 
-	q.lock.Lock()
+	q.Mutex.Lock()
+	defer q.Mutex.Unlock()
 
 	if buffer.Length() > 0 {
 		v = buffer.Peek()
@@ -55,35 +61,31 @@ func (q *MyQueue) TryPop() (v interface{}, ok bool) {
 		ok = true
 	}
 
-	q.lock.Unlock()
 	return
 }
 
 // 插入队列，非阻塞
 func (q *MyQueue) Push(v interface{}) {
-	q.lock.Lock()
+	q.Mutex.Lock()
+	defer q.Mutex.Unlock()
 	if !q.closed {
 		q.buffer.Add(v)
 		q.popable.Signal()
 	}
-	q.lock.Unlock()
 }
 
 // 获取队列长度
-func (q *MyQueue) Len() (l int) {
-	q.lock.Lock()
-	l = q.buffer.Length()
-	q.lock.Unlock()
-	return
+func (q *MyQueue) Len() int {
+	return q.buffer.Length()
 }
 
 // Close MyQueue
 // After close, Pop will return nil without block, and TryPop will return v=nil, ok=True
 func (q *MyQueue) Close() {
-	q.lock.Lock()
+	q.Mutex.Lock()
+	defer q.Mutex.Unlock()
 	if !q.closed {
 		q.closed = true
-		q.popable.Signal()
+		q.popable.Broadcast() //广播
 	}
-	q.lock.Unlock()
 }
