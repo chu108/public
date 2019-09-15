@@ -94,7 +94,7 @@ func (q *MyQueue) Close() {
 //Wait 等待队列消费完成
 func (q *MyQueue) Wait() {
 	for {
-		if q.buffer.Length() == 0 {
+		if q.closed || q.buffer.Length() == 0 {
 			break
 		}
 
