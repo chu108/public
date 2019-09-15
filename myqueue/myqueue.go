@@ -1,6 +1,7 @@
 package myqueue
 
 import (
+	"runtime"
 	"sync"
 
 	"gopkg.in/eapache/queue.v1"
@@ -87,5 +88,16 @@ func (q *MyQueue) Close() {
 	if !q.closed {
 		q.closed = true
 		q.popable.Broadcast() //广播
+	}
+}
+
+//Wait 等待队列消费完成
+func (q *MyQueue) Wait() {
+	for {
+		if q.buffer.Length() == 0 {
+			break
+		}
+
+		runtime.Gosched() //出让时间片
 	}
 }
