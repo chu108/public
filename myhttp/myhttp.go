@@ -23,6 +23,7 @@ func OnPostJSON(url, jsonstr string) []byte {
 	defer resp.Body.Close()
 	body1, err1 := ioutil.ReadAll(resp.Body)
 	if err1 != nil {
+		mylog.Error(err1)
 		return []byte("")
 	}
 
@@ -43,6 +44,7 @@ func OnGetJSON(url, params string) string {
 	defer resp.Body.Close()
 	body1, err1 := ioutil.ReadAll(resp.Body)
 	if err1 != nil {
+		mylog.Error(err1)
 		return ""
 	}
 
@@ -69,7 +71,12 @@ func SendGet(url, params string, obj interface{}) bool {
 	}
 	log.Println((string(body)))
 	err = json.Unmarshal([]byte(body), &obj)
-	return err == nil
+	if err != nil {
+		mylog.Error(err)
+		return false
+	}
+
+	return true
 }
 
 //SendGetEx 发送GET请求
@@ -87,7 +94,12 @@ func SendGetEx(url string, reponse interface{}) bool {
 	}
 	mylog.Debug(string(body))
 	err = json.Unmarshal(body, &reponse)
-	return err == nil
+	if err != nil {
+		mylog.Error(err)
+		return false
+	}
+
+	return true
 }
 
 //OnPostForm form 方式发送post请求
@@ -129,7 +141,12 @@ func SendPost(requestBody interface{}, responseBody interface{}, url string) boo
 	mylog.Debug(string(body))
 
 	err = json.Unmarshal(body, &responseBody)
-	return err == nil
+	if err != nil {
+		mylog.Error(err)
+		return false
+	}
+
+	return true
 }
 
 //WriteJSON  像指定client 发送json 包
