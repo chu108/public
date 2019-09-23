@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"net/url"
 
@@ -69,7 +68,7 @@ func SendGet(url, params string, obj interface{}) bool {
 		mylog.Error(err)
 		return false
 	}
-	log.Println((string(body)))
+	//log.Println((string(body)))
 	err = json.Unmarshal([]byte(body), &obj)
 	if err != nil {
 		mylog.Error(err)
@@ -92,7 +91,7 @@ func SendGetEx(url string, reponse interface{}) bool {
 		mylog.Error(e)
 		return false
 	}
-	mylog.Debug(string(body))
+	//mylog.Debug(string(body))
 	err = json.Unmarshal(body, &reponse)
 	if err != nil {
 		mylog.Error(err)
@@ -138,7 +137,7 @@ func SendPost(requestBody interface{}, responseBody interface{}, url string) boo
 		return false
 	}
 	//	result := string(body)
-	mylog.Debug(string(body))
+	//mylog.Debug(string(body))
 
 	err = json.Unmarshal(body, &responseBody)
 	if err != nil {
