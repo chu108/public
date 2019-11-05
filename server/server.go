@@ -101,18 +101,19 @@ func (sv *Service) Start(callBack func()) {
 				ticker := time.NewTicker(1 * time.Second)
 				<-ticker.C
 
-				var s ServiceTools
-				st, err := s.IsStart(sv.name)
+				var sit ServiceTools
+				st, err := sit.IsStart(sv.name)
 				if err != nil {
 					color.Error.Render(err)
 					return
-				} else {
-					if st == Stopped || st == StopPending {
-						fmt.Print(color.Error.Render(fmt.Sprintf("Service \"%s\" is Stopped.\n", sv.displayName)))
-						fmt.Print(color.Error.Render("can't to start service."))
-						return
-					}
 				}
+
+				if st == Stopped || st == StopPending {
+					fmt.Print(color.Error.Render(fmt.Sprintf("Service \"%s\" is Stopped.\n", sv.displayName)))
+					fmt.Print(color.Error.Render("can't to start service."))
+					return
+				}
+
 				fmt.Print(color.Info.Render(fmt.Sprintf("Service \"%s\" started.\n", sv.displayName)))
 			}
 		case "stop":
@@ -122,18 +123,19 @@ func (sv *Service) Start(callBack func()) {
 					fmt.Print(color.Error.Render(fmt.Sprintf("Failed to stop: %s\n", err)))
 					return
 				}
-				var s ServiceTools
-				st, err := s.IsStart(sv.name)
+				var sit ServiceTools
+				st, err := sit.IsStart(sv.name)
 				if err != nil {
 					fmt.Println(err)
 					return
-				} else {
-					if st == Running || st == StartPending {
-						fmt.Print(color.Error.Render(fmt.Sprintf("Service \"%s\" is Started.\n", sv.displayName)))
-						fmt.Print(color.Error.Render("can't to stop service."))
-						return
-					}
 				}
+
+				if st == Running || st == StartPending {
+					fmt.Print(color.Error.Render(fmt.Sprintf("Service \"%s\" is Started.\n", sv.displayName)))
+					fmt.Print(color.Error.Render("can't to stop service."))
+					return
+				}
+
 				fmt.Print(color.Info.Render(fmt.Sprintf("Service \"%s\" stopped.\n", sv.displayName)))
 			}
 		}
