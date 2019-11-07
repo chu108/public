@@ -13,7 +13,7 @@ import (
 	"github.com/xxjwxc/public/mylog"
 )
 
-//检查目录是否存在
+// CheckFileIsExist 检查目录是否存在
 func CheckFileIsExist(filename string) bool {
 	var exist = true
 	if _, err := os.Stat(filename); os.IsNotExist(err) {
@@ -23,20 +23,20 @@ func CheckFileIsExist(filename string) bool {
 	return exist
 }
 
-//创建目录
-func BuildDir(abs_dir string) error {
-	return os.MkdirAll(path.Dir(abs_dir), os.ModePerm) //生成多级目录
+// BuildDir 创建目录
+func BuildDir(absDir string) error {
+	return os.MkdirAll(path.Dir(absDir), os.ModePerm) //生成多级目录
 }
 
-//删除文件或文件夹
-func DeleteFile(abs_dir string) error {
-	return os.RemoveAll(abs_dir)
+// DeleteFile 删除文件或文件夹
+func DeleteFile(absDir string) error {
+	return os.RemoveAll(absDir)
 }
 
-//获取目录所有文件夹
-func GetPathDirs(abs_dir string) (re []string) {
-	if CheckFileIsExist(abs_dir) {
-		files, _ := ioutil.ReadDir(abs_dir)
+// GetPathDirs 获取目录所有文件夹
+func GetPathDirs(absDir string) (re []string) {
+	if CheckFileIsExist(absDir) {
+		files, _ := ioutil.ReadDir(absDir)
 		for _, f := range files {
 			if f.IsDir() {
 				re = append(re, f.Name())
@@ -46,10 +46,10 @@ func GetPathDirs(abs_dir string) (re []string) {
 	return
 }
 
-//获取目录所有文件
-func GetPathFiles(abs_dir string) (re []string) {
-	if CheckFileIsExist(abs_dir) {
-		files, _ := ioutil.ReadDir(abs_dir)
+// GetPathFiles 获取目录所有文件
+func GetPathFiles(absDir string) (re []string) {
+	if CheckFileIsExist(absDir) {
+		files, _ := ioutil.ReadDir(absDir)
 		for _, f := range files {
 			if !f.IsDir() {
 				re = append(re, f.Name())
@@ -59,7 +59,7 @@ func GetPathFiles(abs_dir string) (re []string) {
 	return
 }
 
-//获取目录地址
+// GetModelPath 获取目录地址
 func GetModelPath() string {
 	file, _ := exec.LookPath(os.Args[0])
 	path := filepath.Dir(file)
@@ -68,15 +68,13 @@ func GetModelPath() string {
 	return path
 }
 
-/*
-获取程序运行路径
-*/
+// GetCurrentDirectory 获取程序运行路径
 func GetCurrentDirectory() string {
 	dir, _ := filepath.Abs(filepath.Dir(os.Args[0]))
 	return strings.Replace(dir, "\\", "/", -1)
 }
 
-//写入文件
+// WriteFile 写入文件
 func WriteFile(fname string, src []string, isClear bool) bool {
 	BuildDir(fname)
 	flag := os.O_CREATE | os.O_WRONLY | os.O_TRUNC
@@ -98,7 +96,7 @@ func WriteFile(fname string, src []string, isClear bool) bool {
 	return true
 }
 
-//读取文件
+// ReadFile 读取文件
 func ReadFile(fname string) (src []string) {
 	f, err := os.OpenFile(fname, os.O_RDONLY, 0666)
 	if err != nil {
