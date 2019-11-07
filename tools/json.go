@@ -6,7 +6,8 @@ import (
 	"net/http"
 )
 
-func JsonToForm(r *http.Request) {
+// JSONToForm tag json str to form
+func JSONToForm(r *http.Request) {
 	//添加支持json 操作
 	r.ParseForm()
 	if len(r.Form) == 1 { //可能是json 支持json
@@ -24,8 +25,8 @@ func JsonToForm(r *http.Request) {
 	}
 
 	body, _ := ioutil.ReadAll(r.Body)
-	body_str := string(body)
-	if len(body_str) > 0 {
+	bodyStr := string(body)
+	if len(bodyStr) > 0 {
 		var m map[string]string
 		if err := json.Unmarshal(body, &m); err == nil {
 			for k, v := range m {
@@ -48,20 +49,24 @@ func JsonToForm(r *http.Request) {
 // 	return err
 // }
 
-func GetJsonStr(obj interface{}) string {
+// GetJSONStr obj to json string
+func GetJSONStr(obj interface{}) string {
 	b, _ := json.Marshal(obj)
 	return string(b)
 }
 
-func JsonDecode(obj interface{}) string {
-	return GetJsonStr(obj)
+// JSONDecode Json Decode
+func JSONDecode(obj interface{}) string {
+	return GetJSONStr(obj)
 }
 
-func GetJsonObj(str string, out interface{}) {
+// GetJSONObj string convert to obj
+func GetJSONObj(str string, out interface{}) {
 	json.Unmarshal([]byte(str), out)
 	return
 }
 
-func JsonEncode(str string, out interface{}) {
-	GetJsonObj(str, out)
+// JSONEncode string convert to obj
+func JSONEncode(str string, out interface{}) {
+	GetJSONObj(str, out)
 }
