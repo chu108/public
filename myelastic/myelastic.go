@@ -315,7 +315,7 @@ func scanMapElement(fieldv reflect.Value, field reflect.StructField, objMap map[
 	bb := field.Tag
 	sqlTag := bb.Get("json")
 
-	if bb.Get("json") == "-" || sqlTag == "-" || reflect.ValueOf(bb).String() == "-" {
+	if sqlTag == "-" || reflect.ValueOf(bb).String() == "-" {
 		return nil
 	}
 
