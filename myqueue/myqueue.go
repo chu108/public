@@ -92,6 +92,7 @@ func (q *MyQueue) Close() {
 	defer q.Mutex.Unlock()
 	if !q.closed {
 		q.closed = true
+		atomic.StoreInt32(&q.count, 0)
 		q.popable.Broadcast() //广播
 	}
 }
