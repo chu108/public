@@ -3,6 +3,7 @@ package myqueue
 import (
 	"runtime"
 	"sync"
+	"sync/atomic"
 
 	"gopkg.in/eapache/queue.v1"
 )
@@ -13,6 +14,7 @@ type MyQueue struct {
 	popable *sync.Cond
 	buffer  *queue.Queue
 	closed  bool
+	count   int32
 }
 
 //New 创建
@@ -32,7 +34,7 @@ func (q *MyQueue) Pop() (v interface{}) {
 	q.Mutex.Lock()
 	defer q.Mutex.Unlock()
 
-	for buffer.Length() == 0 && !q.closed {
+	for q.Len() == 0 && !q.closed {
 		c.Wait()
 	}
 
@@ -40,9 +42,10 @@ func (q *MyQueue) Pop() (v interface{}) {
 		return
 	}
 
-	if buffer.Length() > 0 {
+	if q.Len() > 0 {
 		v = buffer.Peek()
 		buffer.Remove()
+		atomic.AddInt32(&q.count, -1)
 	}
 	return
 }
@@ -54,9 +57,10 @@ func (q *MyQueue) TryPop() (v interface{}, ok bool) {
 	q.Mutex.Lock()
 	defer q.Mutex.Unlock()
 
-	if buffer.Length() > 0 {
+	if q.Len() > 0 {
 		v = buffer.Peek()
 		buffer.Remove()
+		atomic.AddInt32(&q.count, -1)
 		ok = true
 	} else if q.closed {
 		ok = true
@@ -71,13 +75,14 @@ func (q *MyQueue) Push(v interface{}) {
 	defer q.Mutex.Unlock()
 	if !q.closed {
 		q.buffer.Add(v)
+		atomic.AddInt32(&q.count, 1)
 		q.popable.Signal()
 	}
 }
 
 // 获取队列长度
 func (q *MyQueue) Len() int {
-	return q.buffer.Length()
+	return (int)(atomic.LoadInt32(&q.count))
 }
 
 // Close MyQueue
@@ -94,7 +99,7 @@ func (q *MyQueue) Close() {
 //Wait 等待队列消费完成
 func (q *MyQueue) Wait() {
 	for {
-		if q.closed || q.buffer.Length() == 0 {
+		if q.closed || q.Len() == 0 {
 			break
 		}
 
