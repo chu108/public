@@ -1,4 +1,4 @@
-package api
+package mycui
 
 import (
 	"github.com/jroimartin/gocui"
