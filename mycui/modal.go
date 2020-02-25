@@ -84,6 +84,12 @@ func (m *Modal) SetTextColor(textColor gocui.Attribute) *Modal {
 	return m
 }
 
+// SetBgColor set bg color
+func (m *Modal) SetBgColor(textColor gocui.Attribute) *Modal {
+	m.textArea.textBgColor = textColor
+	return m
+}
+
 // AddButton add button
 func (m *Modal) AddButton(id, label string, key Key, handler Handler) *Button {
 	var x, y, w int
