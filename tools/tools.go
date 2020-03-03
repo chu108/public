@@ -58,7 +58,7 @@ func UniqueId() string {
 	return GetMd5String(base64.URLEncoding.EncodeToString(b))
 }
 
-//删除切片index
+// DeleteSlice 删除切片index
 func DeleteSlice(slice interface{}, index int) (interface{}, error) {
 	sliceValue := reflect.ValueOf(slice)
 	length := sliceValue.Len()
