@@ -81,8 +81,8 @@ type Definition struct {
 	XML        XML                  `json:"xml"`
 }
 
-// Body swagger api body info
-type Body struct {
+// APIBody swagger api body info
+type APIBody struct {
 	Head
 	Info                Info                        `json:"info"`
 	Host                string                      `json:"host"`     // http host
