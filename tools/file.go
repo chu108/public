@@ -74,6 +74,11 @@ func GetCurrentDirectory() string {
 	return strings.Replace(dir, "\\", "/", -1)
 }
 
+// SaveToFile 写入文件
+func SaveToFile(fname string, src []string, isClear bool) bool {
+	return WriteFile(fname, src, isClear)
+}
+
 // WriteFile 写入文件
 func WriteFile(fname string, src []string, isClear bool) bool {
 	BuildDir(fname)

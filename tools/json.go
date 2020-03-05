@@ -50,14 +50,19 @@ func JSONToForm(r *http.Request) {
 // }
 
 // GetJSONStr obj to json string
-func GetJSONStr(obj interface{}) string {
-	b, _ := json.Marshal(obj)
+func GetJSONStr(obj interface{}, isFormat bool) string {
+	var b []byte
+	if isFormat {
+		b, _ = json.MarshalIndent(obj, "", "     ")
+	} else {
+		b, _ = json.Marshal(obj)
+	}
 	return string(b)
 }
 
 // JSONDecode Json Decode
 func JSONDecode(obj interface{}) string {
-	return GetJSONStr(obj)
+	return GetJSONStr(obj, false)
 }
 
 // GetJSONObj string convert to obj

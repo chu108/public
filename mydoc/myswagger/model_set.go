@@ -2,7 +2,7 @@ package myswagger
 
 var version string = "2.0"
 var host string = "localhost"
-var basePath string = ""
+var basePath string = "/v1"
 var schemes []string = []string{"http", "https"}
 var reqCtxType []string = []string{"application/json", "application/xml"}
 var respCtxType []string = []string{"application/json", "application/xml"}
