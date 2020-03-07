@@ -17,13 +17,16 @@ require (
 	github.com/kardianos/service v1.0.1-0.20191017145738-4df36c9fc1c6
 	github.com/mailru/easyjson v0.7.0 // indirect
 	github.com/mattn/go-runewidth v0.0.8 // indirect
+	github.com/muesli/cache2go v0.0.0-20191019095710-4098a3aa8c94
 	github.com/nicksnyder/go-i18n/v2 v2.0.3
 	github.com/nsf/termbox-go v0.0.0-20191229070316-58d4fcbce2a7 // indirect
 	github.com/olivere/elastic v6.2.26+incompatible
 	github.com/pkg/errors v0.8.1 // indirect
+	github.com/silenceper/wechat v1.2.3
 	github.com/syndtr/goleveldb v1.0.0
-	golang.org/x/net v0.0.0-20190503192946-f4e77d36d62c
+	golang.org/x/net v0.0.0-20191125084936-ffdde1057850
 	golang.org/x/sys v0.0.0-20191104094858-e8c54fb511f6 // indirect
 	golang.org/x/text v0.3.2
 	gopkg.in/eapache/queue.v1 v1.1.0
+	gopkg.in/go-with/wxpay.v1 v1.3.0
 )

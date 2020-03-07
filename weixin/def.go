@@ -11,9 +11,23 @@ type UserInfo struct {
 	Privilege  []string `json:"privilege"`
 	Unionid    string   `json:"unionid"`
 }
-type ApiTicket struct {
-	Errcode    int    `json:"errcode"`
-	Errmsg     string `json:"errmsg"`
-	Ticket     string `json:"ticket"`
-	Expires_in int    `json:"expires_in"`
+
+// APITicket ...
+type APITicket struct {
+	Errcode   int    `json:"errcode"`
+	Errmsg    string `json:"errmsg"`
+	Ticket    string `json:"ticket"`
+	ExpiresIn int    `json:"expires_in"`
+}
+
+// WxInfo 微信配置信息
+type WxInfo struct {
+	AppID          string // 微信公众平台应用ID
+	AppSecret      string // 微信支付商户平台商户号
+	APIKey         string // 微信支付商户平台API密钥
+	MchID          string
+	NotifyURL      string
+	ShearURL       string
+	Token          string
+	EncodingAESKey string
 }
