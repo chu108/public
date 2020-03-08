@@ -7,6 +7,7 @@ import (
 )
 
 func TestDomain(t *testing.T) {
+	SetHost("http://localhost:8080")
 	SetBasePath("/v1")
 	doc := NewDoc()
 	var tag Tag

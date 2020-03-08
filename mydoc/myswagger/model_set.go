@@ -1,5 +1,7 @@
 package myswagger
 
+import "strings"
+
 var version string = "2.0"
 var host string = "localhost"
 var basePath string = "/v1"
@@ -23,11 +25,16 @@ func SetVersion(v string) {
 
 // SetHost 设置host
 func SetHost(h string) {
+	h = strings.TrimPrefix(h, "http://")
+	h = strings.TrimPrefix(h, "https://")
 	host = h
 }
 
 // SetBasePath set basePath
 func SetBasePath(b string) {
+	if strings.HasPrefix(b, "/") {
+		b = "/" + b
+	}
 	basePath = b
 }
 
